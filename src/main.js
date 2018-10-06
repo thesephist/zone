@@ -16,7 +16,18 @@ if (!fs.existsSync(Config.DATABASE)) {
     fs.mkdirSync(Config.DATABASE);
 }
 
+// cache template HTML
+const TEMPLATE = fs.readFileSync('static/template.html', 'utf8');
+
 const storage = new StorageBackend(Config.DATABASE);
+
+const tpl = params => {
+    let templateResult = TEMPLATE;
+    for (const [key, value] of Object.entries(params)) {
+        templateResult = templateResult.replace(`%${key}%`, value);
+    }
+    return templateResult;
+}
 
 app.get('/', (req, res) => {
     fs.readFile('static/index.html', 'utf8', (err, data) => {
@@ -64,7 +75,10 @@ app.get('/:id', async (req, res) => {
     if (await storage.has(rid)) {
         const record = await storage.get(rid);
         if (record.isNote()) {
-            res.send(record.render());
+            res.send(tpl({
+                title: `${record.id} | ${Config.DOMAIN}`,
+                content: record.render(),
+            }));
             console.log(`Rendered note ${record.id} as HTML`);
         } else if (record.isURI()) {
             res.redirect(302, record.getRedirect());

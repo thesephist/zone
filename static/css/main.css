@@ -9,7 +9,9 @@ body,
 div,
 input,
 label,
-textarea {
+textarea,
+blockquote,
+code {
     box-sizing: border-box;
 }
 
@@ -110,6 +112,15 @@ input[type="submit"]:hover {
 
 .hidden {
     visibility: hidden;
+}
+
+blockquote {
+    border-left: 2px solid #777;
+    padding-left: 12px;
+}
+
+p a {
+    color: #333;
 }
 
 @media only screen and (max-width: 700px) {
