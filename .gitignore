@@ -59,3 +59,7 @@ typings/
 
 # next.js build output
 .next
+
+# database folder for linus.zone
+db/
+
