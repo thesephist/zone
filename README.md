@@ -14,3 +14,6 @@ To start `zone`:
 - [ ] Ability to add images
 - [ ] Ability to see all created uris and notes as links under one page (`/all`), password-authenticated
 - [ ] Add an in-memory cache for performance
+- [ ] Show the total number of allocated records on the homepage (from the in-memory cache for performance)
+- [ ] Add `/:id/raw` to get the raw database file, especially useful for inspecting / copying raw markdown code
+
