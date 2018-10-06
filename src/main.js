@@ -76,7 +76,7 @@ app.get('/:id', async (req, res) => {
         const record = await storage.get(rid);
         if (record.isNote()) {
             res.send(tpl({
-                title: `${record.id} | ${Config.DOMAIN}`,
+                title: record.id,
                 content: record.render(),
             }));
             console.log(`Rendered note ${record.id} as HTML`);
