@@ -1,0 +1,120 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+div,
+input,
+label,
+textarea {
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+p {
+    color: #333;
+}
+
+body {
+    font-family: 'Helvetica', sans-serif;
+    background: #f0f0f0;
+}
+
+main {
+    margin: 24px auto;
+    width: 60%;
+    max-width: 700px;
+}
+
+a {
+    color: #777;
+}
+
+a:hover {
+    opacity: .6;
+}
+
+label {
+    color: #777;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+input,
+textarea {
+    padding: 6px 12px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: #fff;
+    border-radius: 6px;
+    font-size: 16px;
+    border: 2px solid transparent;
+}
+
+input:focus,
+textarea:focus {
+    border: 2px solid #aaa;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header,
+input,
+textarea {
+    width: 100%;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.inputGroup.submit {
+    margin-left: 16px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 300px;
+}
+
+input[type="submit"] {
+    padding: 6px 12px;
+    background: #777;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: opacity .2s;
+}
+
+input[type="submit"]:hover {
+    opacity: .8;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 700px) {
+    main {
+        width: 96%;
+        max-width: unset;
+    }
+}

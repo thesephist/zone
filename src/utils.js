@@ -12,7 +12,7 @@ const randid = _ => {
  * Is the given ID a valid ID in our system?
  */
 const validid = id => {
-    return shortid.validate(id);
+    return id && shortid.isValid(id);
 }
 
 module.exports = {

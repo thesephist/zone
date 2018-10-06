@@ -90,7 +90,7 @@ class Record {
             validid(this.id),
             VALID_TYPES.includes(this.type),
             this.content !== '',
-        ].some(x => x);
+        ].every(x => x);
     }
 
     render() {
@@ -107,10 +107,6 @@ class Record {
         }
 
         return this.content;
-    }
-
-    save(storage) {
-        storage.save(this);
     }
 
     serialize() {

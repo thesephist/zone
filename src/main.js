@@ -39,7 +39,11 @@ app.post('/new', async (req, res) => {
 
         if (record.isURI() && record.id === record.content) {
             res.status(409);
-            res.send(`This note will create a redirect loop!`);
+            res.send(`This record will create a redirect loop!`);
+            return;
+        } else if (!record.validate()) {
+            res.status(400);
+            res.send(`This record is invalid!`);
             return;
         }
 
