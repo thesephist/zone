@@ -90,6 +90,25 @@ app.get('/:id', async (req, res) => {
     }
 });
 
+app.get('/:id/raw', async (req, res) => {
+    res.set('Content-Type', 'text/plain');
+
+    const rid = req.params.id;
+    if (await storage.has(rid)) {
+        const record = await storage.get(rid);
+        if (record.isNote()) {
+            res.send(record.getRawNote());
+            console.log(`Rendered raw note for ${record.id}`);
+        } else if (record.isURI()) {
+            res.send(record.getRedirect());
+            console.log(`Rendered raw uri for ${record.id}`);
+        }
+    } else {
+        res.status(404);
+        res.send(`Record ${rid} does not exist.`);
+    }
+});
+
 app.use('/static', express.static('static'));
 
 app.listen(

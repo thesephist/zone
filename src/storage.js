@@ -101,6 +101,14 @@ class Record {
         return marked(this.content);
     }
 
+    getRawNote() {
+        if (!this.isNote()) {
+            throw new Error(`Cannot get raw note of a record of type ${this.type}`);
+        }
+
+        return this.content;
+    }
+
     getRedirect() {
         if (!this.isURI()) {
             throw new Error(`Cannot render a redirect path for record of type ${this.type}`);
