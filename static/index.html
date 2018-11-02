@@ -11,30 +11,30 @@
 
 <body>
   <main>
-    <h1><a href="/">linus.zone</a></h1>
+    <h1><a href="/" tabindex="0">linus.zone</a></h1>
 
     <form action="/new" method="post">
       <div class="header">
         <div class="inputGroup">
           <label for="id">ID</label>
-          <input type="text" name="id" id="id" />
+          <input type="text" name="id" id="id" tabindex="1" autofocus/>
         </div>
         <div class="inputGroup submit">
             <label class="hidden">Add Record</label>
-            <input type="submit" value="Add Record" />
+            <input type="submit" value="Add Record" tabindex="2"/>
         </div>
       </div>
 
       <div class="inputGroup">
         <label for="content_uri">URI</label>
-        <input type="text" name="content_uri" id="content_uri" />
+        <input type="text" name="content_uri" id="content_uri"  tabindex="1"/>
       </div>
 
       <div class="orMark">or</div>
 
       <div class="inputGroup">
         <label for="content_note">Note (supports Markdown)</label>
-        <textarea name="content_note" id="content_note" autofocus></textarea>
+        <textarea name="content_note" id="content_note" tabindex="1"></textarea>
       </div>
 
     </form>
