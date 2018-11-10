@@ -58,9 +58,13 @@ app.post('/new', async (req, res) => {
             return;
         }
 
-        await storage.save(record);
-        res.redirect(302, `/${record.id}`);
-        console.log(`Created note ${record.id} as ${record.type}`);
+        try {
+            await storage.save(record);
+            res.redirect(302, `/${record.id}`);
+            console.log(`Created note ${record.id} as ${record.type}`);
+        } catch (e) {
+            console.error(e);
+        }
     } catch (e) {
         res.status(500);
         res.send('');
@@ -72,21 +76,25 @@ app.get('/:id', async (req, res) => {
     res.set('Content-Type', 'text/html');
 
     const rid = req.params.id;
-    if (await storage.has(rid)) {
-        const record = await storage.get(rid);
-        if (record.isNote()) {
-            res.send(tpl({
-                title: record.id,
-                content: record.render(),
-            }));
-            console.log(`Rendered note ${record.id} as HTML`);
-        } else if (record.isURI()) {
-            res.redirect(302, record.getRedirect());
-            console.log(`Redirected note ${record.id} to ${record.getRedirect()}`);
+    try {
+        if (await storage.has(rid)) {
+            const record = await storage.get(rid);
+            if (record.isNote()) {
+                res.send(tpl({
+                    title: record.id,
+                    content: record.render(),
+                }));
+                console.log(`Rendered note ${record.id} as HTML`);
+            } else if (record.isURI()) {
+                res.redirect(302, record.getRedirect());
+                console.log(`Redirected note ${record.id} to ${record.getRedirect()}`);
+            }
+        } else {
+            res.status(404);
+            res.send(`Record ${rid} does not exist.`);
         }
-    } else {
-        res.status(404);
-        res.send(`Record ${rid} does not exist.`);
+    } catch (e) {
+        console.error(e);
     }
 });
 
@@ -94,18 +102,22 @@ app.get('/:id/raw', async (req, res) => {
     res.set('Content-Type', 'text/plain');
 
     const rid = req.params.id;
-    if (await storage.has(rid)) {
-        const record = await storage.get(rid);
-        if (record.isNote()) {
-            res.send(record.getRawNote());
-            console.log(`Rendered raw note for ${record.id}`);
-        } else if (record.isURI()) {
-            res.send(record.getRedirect());
-            console.log(`Rendered raw uri for ${record.id}`);
+    try {
+        if (await storage.has(rid)) {
+            const record = await storage.get(rid);
+            if (record.isNote()) {
+                res.send(record.getRawNote());
+                console.log(`Rendered raw note for ${record.id}`);
+            } else if (record.isURI()) {
+                res.send(record.getRedirect());
+                console.log(`Rendered raw uri for ${record.id}`);
+            }
+        } else {
+            res.status(404);
+            res.send(`Record ${rid} does not exist.`);
         }
-    } else {
-        res.status(404);
-        res.send(`Record ${rid} does not exist.`);
+    } catch (e) {
+        console.error(e);
     }
 });
 
