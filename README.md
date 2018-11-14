@@ -11,6 +11,7 @@ To start `zone`:
 
 ## Todo's
 
+- [ ] Add a button to incrementally expand the height of the textarea for larger multiline inputs, since it's awkward to use the dragger when the page has a limited height itself
 - [ ] Ability to add images
 - [ ] Ability to see all created uris and notes as links under one page (`/all`), password-authenticated
 
