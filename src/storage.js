@@ -23,7 +23,7 @@ class StorageBackend {
                     res(!err);
                 }
             );
-        });
+        }).catch(e => console.error(e));
     }
 
     get(id) {
@@ -38,7 +38,7 @@ class StorageBackend {
                         res(Record.parse(data));
                     }
                 });
-        });
+        }).catch(e => console.error(e));
     }
 
     save(record) {
@@ -55,7 +55,7 @@ class StorageBackend {
                     }
                 }
             )
-        })
+        }).catch(e => console.error(e));
     }
 
 }
