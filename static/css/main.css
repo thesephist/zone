@@ -41,6 +41,10 @@ a:hover {
     opacity: .6;
 }
 
+input[type="checkbox"] {
+    width: auto;
+}
+
 header {
     display: flex;
     flex-direction: row;
