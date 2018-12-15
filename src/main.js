@@ -41,26 +41,55 @@ app.get('/', (req, res) => {
 });
 
 app.post('/new', async (req, res) => {
-    try {
-        const record = new Record({
-            id: req.body.id || undefined,
-            type: req.body.content_uri ? 'uri' : 'note',
-            content: req.body.content_uri || req.body.content_note,
-        });
+    if (req.body.id && req.body.id.includes('.')) {
+        res.status(400);
+        res.set('Content-Type', 'text/plain');
+        res.send('Record IDs cannot contain "."!');
+        return;
+    }
 
-        if (record.isURI() && record.id === record.content) {
-            res.status(409);
-            res.send(`This record will create a redirect loop!`);
-            return;
-        } else if (!record.validate()) {
-            res.status(400);
-            res.send(`This record is invalid!`);
-            return;
+    try {
+        let canCreateRecord = false;
+        if (await storage.has(req.body.id)) {
+            const existingRecord = await storage.get(req.body.id);
+            if (existingRecord.isLocked()) {
+                if (existingRecord.canUnlockWith(req.body.password)) {
+                    canCreateRecord = true;
+                }
+            } else {
+                canCreateRecord = true;
+            }
+        } else {
+            canCreateRecord = true;
         }
 
-        await storage.save(record);
-        res.redirect(302, `/${record.id}`);
-        console.log(`Created note ${record.id} as ${record.type}`);
+        if (canCreateRecord) {
+            const record = new Record({
+                id: req.body.id || undefined,
+                type: req.body.content_uri ? 'uri' : 'note',
+                password: req.body.password || undefined,
+                content: req.body.content_uri || req.body.content_note,
+            });
+
+            if (record.isURI() && record.id === record.content) {
+                res.status(409);
+                res.send(`This record will create a redirect loop!`);
+                return;
+            } else if (!record.validate()) {
+                res.status(400);
+                res.send(`This record is invalid!`);
+                return;
+            }
+
+            await storage.save(record);
+            res.redirect(302, `/${record.id}`);
+            console.log(`Created note ${record.id} as ${record.type}`);
+        } else {
+            res.status(401);
+            res.set('Content-Type', 'text/plain');
+            res.send(`Incorrect password: could not edit record ${req.body.id}.`);
+            console.log(`Unauthorized attempt to edit ${req.body.id}`);
+        }
     } catch (e) {
         res.status(500);
         res.send('');
@@ -113,6 +142,24 @@ app.get('/:id/raw', async (req, res) => {
             res.send(`Record ${rid} does not exist.`);
         }
     } catch (e) {
+        console.error(e);
+    }
+});
+
+app.get('/:id/locked', async (req, res) => {
+    res.set('Content-Type', 'text/plain');
+
+    const rid = req.params.id;
+    try {
+        if (await storage.has(rid)) {
+            const record = await storage.get(rid);
+            res.send(record.isLocked() ? '1' : '0');
+        } else {
+            // doesn't exist, so this ID isn't locked
+            res.send('0');
+        }
+    } catch (e) {
+        res.send('0');
         console.error(e);
     }
 });

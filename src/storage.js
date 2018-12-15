@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const marked = require('marked');
 const { randid, validid } = require('./utils.js');
@@ -65,11 +66,22 @@ class Record {
     constructor({
         id = randid(),
         type = 'note',
+        hash = undefined,
+        password = undefined,
         content = '',
     }) {
         this.id = id.trim();
         this.type = type;
+        this.hash = hash || (password ? Record.hash(this.id, password) : undefined);
         this.content = content.trim();
+    }
+
+    isLocked() {
+        return this.hash !== undefined;
+    }
+
+    canUnlockWith(password) {
+        return this.hash === Record.hash(this.id, password);
     }
 
     isURI() {
@@ -118,15 +130,26 @@ class Record {
     }
 
     serialize() {
-        return `${this.type}.${this.id}\n${this.content}`;
+        if (this.isLocked()) {
+            return `${this.type}.${this.id}.${this.hash}\n${this.content}`;
+        } else {
+            return `${this.type}.${this.id}\n${this.content}`;
+        }
+    }
+
+    static hash(id, password) {
+        const hash = crypto.createHash('sha256');
+        hash.update(id + password);
+        return hash.digest('hex');
     }
 
     static parse(data) {
         const [firstline, ...contentLines] = data.split('\n');
-        const [type, id] = firstline.split('.');
+        const [type, id, hash] = firstline.split('.');
         return new Record({
             id: id,
             type: type,
+            hash: hash,
             content: contentLines.join('\n'),
         });
     }
