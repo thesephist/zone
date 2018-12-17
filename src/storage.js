@@ -17,13 +17,17 @@ class StorageBackend {
 
     has(id) {
         return new Promise((res, rej) => {
-            fs.access(
-                this.pathFromID(id),
-                fs.constants.F_OK,
-                err => {
-                    res(!err);
-                }
-            );
+            if (!id) {
+                res(false);
+            } else {
+                fs.access(
+                    this.pathFromID(id),
+                    fs.constants.F_OK,
+                    err => {
+                        res(!err);
+                    }
+                );
+            }
         }).catch(e => console.error(e));
     }
 
