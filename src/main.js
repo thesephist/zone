@@ -153,7 +153,6 @@ app.get('/:id/content', async (req, res) => {
     try {
         if (await storage.has(rid)) {
             const record = await storage.get(rid);
-            let content = {};
             if (record.isNote()) {
                 res.send({
                     type: 'note',

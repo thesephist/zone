@@ -105,7 +105,7 @@
                       }
 
                       if (userTypedInput) {
-                          let replace = confirm(`Do you want to replace what you've typed with the existing content for id ${id}?`);
+                          const replace = confirm(`Do you want to replace what you've typed with the existing content for id ${id}?`);
                           if (!replace) {
                               return;
                           }
@@ -137,15 +137,18 @@
 
           setPasswordGroupVisibility(false);
           idInput.addEventListener('input', debounce(async () => {
-              const showPasswordRequired = await checkIfShouldShowPasswordRequired();
+              const [showPasswordRequired, _] = [
+                  await checkIfShouldShowPasswordRequired(),
+                  await populateContentForExistingNote(),
+              ];
               setPasswordGroupVisibility(showPasswordRequired);
               await populateContentForExistingNote();
           }, 400));
           uriInput.addEventListener('input', () => {
-              userTypedInput = true;
+              userTypedInput = uriInput.value.length > 0;
           });
           noteInput.addEventListener('input', () => {
-              userTypedInput = true;
+              userTypedInput = noteInput.value.length > 0;
           });
       })();
   </script>
