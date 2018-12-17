@@ -3,7 +3,11 @@ const path = require('path');
 const crypto = require('crypto');
 
 const marked = require('marked');
-const { randid, validid } = require('./utils.js');
+const {
+    randid,
+    validid,
+    sanitizeDangerousHtml,
+} = require('./utils.js');
 
 class StorageBackend {
 
@@ -77,7 +81,7 @@ class Record {
         this.id = id.trim();
         this.type = type;
         this.hash = hash || (password ? Record.hash(this.id, password) : undefined);
-        this.content = content.trim();
+        this.content = sanitizeDangerousHtml(content.trim());
     }
 
     isLocked() {
