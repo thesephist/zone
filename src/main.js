@@ -146,6 +146,35 @@ app.get('/:id/raw', async (req, res) => {
     }
 });
 
+app.get('/:id/content', async (req, res) => {
+    res.set('Content-Type', 'application/json');
+
+    const rid = req.params.id;
+    try {
+        if (await storage.has(rid)) {
+            const record = await storage.get(rid);
+            if (record.isNote()) {
+                res.send({
+                    type: 'note',
+                    content: record.getRawNote(),
+                });
+            } else if (record.isURI()) {
+                res.send({
+                    type: 'uri',
+                    content: record.getRedirect(),
+                });
+            }
+        } else {
+            res.send({
+                type: 'none',
+                content: `Record ${rid} does not exist.`
+            });
+        }
+    } catch (e) {
+        console.error(e);
+    }
+});
+
 app.get('/:id/locked', async (req, res) => {
     res.set('Content-Type', 'text/plain');
 
