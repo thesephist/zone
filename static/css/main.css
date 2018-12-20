@@ -2,6 +2,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 
 html,
@@ -88,6 +89,7 @@ label {
 }
 
 input,
+button,
 textarea {
     padding: 6px 12px;
     width: 100%;
@@ -134,6 +136,7 @@ textarea {
     min-height: 300px;
 }
 
+button,
 input[type="submit"] {
     padding: 6px 12px;
     background: #777;
@@ -145,6 +148,7 @@ input[type="submit"] {
     transition: opacity .2s;
 }
 
+button:hover,
 input[type="submit"]:hover,
 input[type="submit"]:focus {
     opacity: .7;
@@ -169,6 +173,12 @@ p a {
     font-weight: bold;
     text-align: center;
     margin: 12px 0;
+}
+
+#expandNoteButton {
+    margin-left: auto;
+    margin-top: 12px;
+    width: auto;
 }
 
 @media only screen and (max-width: 700px) {
