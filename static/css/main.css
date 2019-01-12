@@ -23,6 +23,15 @@ p {
     color: #333;
 }
 
+p {
+    line-height: 1.4em;
+}
+
+p.warning {
+    font-style: italic;
+    opacity: .6;
+}
+
 body {
     font-family: 'Helvetica', sans-serif;
     background: #f0f0f0;
