@@ -176,6 +176,10 @@ p a {
     color: #333;
 }
 
+img {
+    max-width; 100%;
+}
+
 .orMark {
     color: #aaa;
     text-transform: uppercase;
