@@ -60,6 +60,19 @@
         }
     }
 
+    function handleKeydown(evt) {
+        if (evt.key === 'Tab') { // Tab key
+            evt.preventDefault();
+            const idx = evt.target.selectionStart;
+            if (idx !== null) {
+                const front = evt.target.value.substr(0, idx);
+                const back = evt.target.value.substr(idx);
+                evt.target.value = front + '    ' + back;
+                evt.target.setSelectionRange(idx + 4, idx + 4);
+            }
+        }
+    }
+
     function debounce(fn, duration) {
         let timeout = undefined;
         return () => {
@@ -82,6 +95,7 @@
     noteInput.addEventListener('input', () => {
         userTypedInput = noteInput.value.length > 0;
     });
+    noteInput.addEventListener('keydown', handleKeydown);
 
     function expandTextarea(evt) {
         evt.preventDefault();
