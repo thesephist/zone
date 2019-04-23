@@ -24,6 +24,7 @@
             return false;
         }
     }
+
     async function populateContentForExistingNote() {
         const id = idInput.value;
         if (id) {
@@ -56,12 +57,13 @@
                 userTypedInput = false;
 
             } catch (e) {
+                console.error(`Error fetching content for preexisting note: ${e}`);
             }
         }
     }
 
     function handleKeydown(evt) {
-        if (evt.key === 'Tab') { // Tab key
+        if (evt.key === 'Tab' && !evt.shiftKey) {
             evt.preventDefault();
             const idx = evt.target.selectionStart;
             if (idx !== null) {
@@ -103,7 +105,7 @@
         noteInput.style.height = `${lastHeight + 150}px`;
         document.documentElement.scrollTop += 150;
     }
-    document.querySelector('#expandNoteButton').addEventListener('click', expandTextarea);
+    document.getElementById('expandNoteButton').addEventListener('click', expandTextarea);
 
-})();
+}());
 
