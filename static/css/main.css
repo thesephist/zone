@@ -68,7 +68,7 @@ header p a {
 }
 
 header p a::after {
-    content: 'Show on GitHub';
+    content: attr(title);
     display: block;
     opacity: 0;
     color: #333;
@@ -138,6 +138,8 @@ textarea {
 
 .inputGroup.submit {
     margin-left: 16px;
+    width: 180px;
+    flex-grow: 0;
 }
 
 textarea {
