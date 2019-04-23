@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "marked": "^0.5.1",
-    "shortid": "^2.2.13"
+    "express": "^4.16.4",
+    "marked": "^0.6.2",
+    "shortid": "^2.2.14"
   }
 }
