@@ -23,18 +23,19 @@ p {
     color: #333;
 }
 
-p {
+p,
+li {
     line-height: 1.4em;
 }
 
 p.warning {
     font-style: italic;
-    opacity: .6;
+    color: #777;
 }
 
 body {
-    font-family: 'Helvetica', sans-serif;
-    background: #f0f0f0;
+    font-family: system-ui, 'Helvetica', 'Segoe UI', sans-serif;
+    background: #f8f8f8;
 }
 
 main {
@@ -44,7 +45,7 @@ main {
 }
 
 a {
-    color: #777;
+    color: #333;
 }
 
 a:hover {
@@ -63,7 +64,7 @@ header {
 }
 
 header p a {
-    color: #777;
+    color: #333;
     position: relative;
 }
 
@@ -91,8 +92,7 @@ header p a:hover::after {
 }
 
 label {
-    color: #777;
-    text-transform: uppercase;
+    color: #333;
     font-weight: bold;
     margin: 8px 0;
 }
@@ -102,17 +102,22 @@ button,
 textarea {
     padding: 6px 12px;
     width: 100%;
-    border: none;
     outline: none;
     background: #fff;
-    border-radius: 6px;
+    border-radius: 4px;
     font-size: 16px;
-    border: 2px solid transparent;
+    border: 2px solid #aaa;
+    font-family: 'Menlo', 'Monaco', 'Courier', monospace;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #999;
 }
 
 input:focus,
 textarea:focus {
-    border: 2px solid #aaa;
+    border: 2px solid #333;
 }
 
 .header {
@@ -145,19 +150,18 @@ textarea {
 textarea {
     resize: vertical;
     min-height: 300px;
-    font-family: 'Menlo', 'Monaco', 'Courier', monospace;
 }
 
 button,
 input[type="submit"] {
     padding: 6px 12px;
-    background: #777;
+    background: #333;
     color: #fff;
     cursor: pointer;
     display: block;
-    text-transform: uppercase;
     font-weight: bold;
     transition: opacity .2s;
+    border-color: #333;
 }
 
 button:hover,
@@ -171,7 +175,7 @@ input[type="submit"]:focus {
 }
 
 blockquote {
-    border-left: 2px solid #777;
+    border-left: 2px solid #333;
     padding-left: 12px;
 }
 
@@ -184,8 +188,7 @@ img {
 }
 
 .orMark {
-    color: #aaa;
-    text-transform: uppercase;
+    color: #333;
     font-weight: bold;
     text-align: center;
     margin: 12px 0;
