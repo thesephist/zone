@@ -108,6 +108,7 @@ textarea {
     font-size: 16px;
     border: 2px solid #aaa;
     font-family: 'Menlo', 'Monaco', 'Courier', monospace;
+    box-shadow: none;
 }
 
 input::placeholder,
