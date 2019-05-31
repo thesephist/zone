@@ -25,12 +25,20 @@ p {
 
 p,
 li {
-    line-height: 1.4em;
+    line-height: 1.5em;
 }
 
 p.warning {
     font-style: italic;
     color: #777;
+}
+
+code {
+    font-family: 'Dank Mono', 'Menlo', 'Monaco', monospace;
+    background: #e3e3e3;
+    padding: 0 5px 2px 5px;
+    border-radius: 4px;
+    font-size: 1em;
 }
 
 body {
