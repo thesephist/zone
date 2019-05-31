@@ -10,6 +10,10 @@
         requiredMessage.style.display = displayed ? '' : 'none';
     }
 
+    function submitForm() {
+        document.querySelector('form').submit();
+    }
+
     async function checkIfShouldShowPasswordRequired() {
         const id = idInput.value;
         if (id) {
@@ -72,6 +76,11 @@
                 evt.target.value = front + '    ' + back;
                 evt.target.setSelectionRange(idx + 4, idx + 4);
             }
+        }
+
+        // metaKey detects the command key on macOS
+        if (evt.key === 'Enter' && (evt.ctrlKey || evt.metaKey)) {
+            submitForm();
         }
     }
 
