@@ -12,7 +12,8 @@ input,
 label,
 textarea,
 blockquote,
-code {
+code,
+pre {
     box-sizing: border-box;
 }
 
@@ -33,12 +34,24 @@ p.warning {
     color: #777;
 }
 
-code {
+code, pre {
     font-family: 'Dank Mono', 'Menlo', 'Monaco', monospace;
     background: #e3e3e3;
-    padding: 0 5px 2px 5px;
     border-radius: 4px;
     font-size: 1em;
+    padding: 6px 8px;
+}
+
+pre {
+    overflow-x: auto;
+}
+
+pre code {
+    padding: 0;
+}
+
+code {
+    padding: 0 5px 2px 5px;
 }
 
 body {
