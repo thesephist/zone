@@ -30,7 +30,6 @@ const tpl = params => {
 }
 
 app.get('/', (req, res) => {
-    console.log(req.header('User-Agent'));
     if (req.header('User-Agent').includes('curl/')) {
         res.set('Content-Type', 'text/plain');
         res.send(`Linus Lee
