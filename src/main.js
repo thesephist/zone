@@ -30,14 +30,36 @@ const tpl = params => {
 }
 
 app.get('/', (req, res) => {
-    fs.readFile('static/index.html', 'utf8', (err, data) => {
-        if (err) {
-            throw err;
-        }
+    console.log(req.header('User-Agent'));
+    if (req.header('User-Agent').includes('curl/')) {
+        res.set('Content-Type', 'text/plain');
+        res.send(`Linus Lee
+===
 
-        res.set('Content-Type', 'text/html');
-        res.send(data);
-    });
+www:    linus.zone/now
+email:  linus@thesephist.com
+social: @thesephist
+
+---
+
+Investment Partner, Dorm Room Fund
+linus@drf.vc
+
+Director, Cal Hacks
+linus@calhacks.io
+
+Computer Science, UC Berkeley
+l7@berkeley.edu`);
+    } else {
+        fs.readFile('static/index.html', 'utf8', (err, data) => {
+            if (err) {
+                throw err;
+            }
+
+            res.set('Content-Type', 'text/html');
+            res.send(data);
+        });
+    }
 });
 
 app.post('/new', async (req, res) => {
