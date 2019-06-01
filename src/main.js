@@ -41,14 +41,17 @@ social: @thesephist
 
 ---
 
+Frontend Engineer, Repl.it
+    linus@repl.it
+
 Investment Partner, Dorm Room Fund
-linus@drf.vc
+    linus@drf.vc
 
 Director, Cal Hacks
-linus@calhacks.io
+    linus@calhacks.io
 
 Computer Science, UC Berkeley
-l7@berkeley.edu`);
+    l7@berkeley.edu\n`);
     } else {
         fs.readFile('static/index.html', 'utf8', (err, data) => {
             if (err) {
