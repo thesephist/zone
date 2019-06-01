@@ -32,16 +32,16 @@ const tpl = params => {
 app.get('/', (req, res) => {
     if (req.header('User-Agent').includes('curl/')) {
         res.set('Content-Type', 'text/plain');
-        res.send(`Linus Lee
-===
+        res.send(`[1mLinus Lee[0m
+[33m===[0m
 
-www:    linus.zone/now
+[34mwww:    linus.zone/now
 email:  linus@thesephist.com
-social: @thesephist
+social: @thesephist[0m
 
----
+[33m---[0m
 
-Frontend Engineer, Repl.it
+[32mFrontend Engineer, Repl.it
     linus@repl.it
 
 Investment Partner, Dorm Room Fund
@@ -51,7 +51,7 @@ Director, Cal Hacks
     linus@calhacks.io
 
 Computer Science, UC Berkeley
-    l7@berkeley.edu\n`);
+    l7@berkeley.edu[0m\n`);
     } else {
         fs.readFile('static/index.html', 'utf8', (err, data) => {
             if (err) {
