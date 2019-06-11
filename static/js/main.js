@@ -21,7 +21,7 @@
                 const locked = await fetch(`/${id}/locked`).then(resp => resp.text());
                 return +locked > 0;
             } catch (e) {
-                // should happen, but just in case, reveal the password field
+                // shouldn't happen, but just in case, reveal the password field
                 return true;
             }
         } else {
@@ -34,10 +34,10 @@
         if (id) {
             try {
                 const content = await fetch(`/${id}/content`).then(resp => resp.json());
-                if (content['type'] == "none") {
+                if (content['type'] == 'none') {
                     if (!userTypedInput) {
-                        uriInput.value = "";
-                        noteInput.value = "";
+                        uriInput.value = '';
+                        noteInput.value = '';
                     }
                     return;
                 }
@@ -49,11 +49,11 @@
                     }
                 }
 
-                if (content['type'] == "note") {
-                    uriInput.value = "";
+                if (content['type'] == 'note') {
+                    uriInput.value = '';
                     noteInput.value = content['content'];
                 }
-                else if (content['type'] == "uri") {
+                else if (content['type'] == 'uri') {
                     uriInput.value = content['content'];
                     noteInput.value = '';
                 }
