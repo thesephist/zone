@@ -30,6 +30,8 @@ const tpl = params => {
 }
 
 app.get('/', (req, res) => {
+    //> Hack to return a fancy ANSI terminal result
+    //  when running $ curl linus.zone
     if (req.header('User-Agent').includes('curl/')) {
         res.set('Content-Type', 'text/plain');
         res.send(`[1mLinus Lee[0m
