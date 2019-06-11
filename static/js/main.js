@@ -112,7 +112,6 @@
         evt.preventDefault();
         const lastHeight = noteInput.getBoundingClientRect().height;
         noteInput.style.height = `${lastHeight + 150}px`;
-        document.documentElement.scrollTop += 150;
     }
     document.getElementById('expandNoteButton').addEventListener('click', expandTextarea);
 
