@@ -70,7 +70,7 @@ app.post('/new', async (req, res) => {
     if (req.body.id && req.body.id.includes('.')) {
         res.status(400);
         res.set('Content-Type', 'text/plain');
-        res.send('Record IDs cannot contain "."!');
+        res.send('Record IDs cannot contain "."');
         return;
     }
 
@@ -99,11 +99,11 @@ app.post('/new', async (req, res) => {
 
             if (record.isURI() && record.id === record.content) {
                 res.status(409);
-                res.send(`This record will create a redirect loop!`);
+                res.send(`This record will create a redirect loop`);
                 return;
             } else if (!record.validate()) {
                 res.status(400);
-                res.send(`This record is invalid!`);
+                res.send(`This record is invalid`);
                 return;
             }
 
