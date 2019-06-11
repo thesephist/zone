@@ -172,6 +172,23 @@ app.get('/:id/raw', async (req, res) => {
     }
 });
 
+app.get('/:id/edit', async (req, res) => {
+    res.set('Content-Type', 'text/plain');
+
+    const rid = req.params.id;
+    try {
+        if (await storage.has(rid)) {
+            const record = await storage.get(rid);
+            res.redirect(302, `/#${record.id}`); // prefilled form
+        } else {
+            res.status(404);
+            res.send(`Record ${rid} does not exist.`);
+        }
+    } catch (e) {
+        console.error(e);
+    }
+});
+
 app.get('/:id/content', async (req, res) => {
     res.set('Content-Type', 'application/json');
 
@@ -223,6 +240,6 @@ app.use('/static', express.static('static'));
 
 app.listen(
     Config.PORT,
-    _ => console.log(`Zone service running on :${Config.PORT}`)
+    () => console.log(`Zone service running on :${Config.PORT}`)
 );
 

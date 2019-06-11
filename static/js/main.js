@@ -92,14 +92,16 @@
         }
     }
 
-    setPasswordGroupVisibility(false);
-    idInput.addEventListener('input', debounce(async () => {
+    const onIdInput = async () => {
         const [showPasswordRequired, _] = [
             await checkIfShouldShowPasswordRequired(),
             await populateContentForExistingNote(),
         ];
         setPasswordGroupVisibility(showPasswordRequired);
-    }, 400));
+    }
+
+    setPasswordGroupVisibility(false);
+    idInput.addEventListener('input', debounce(onIdInput, 400));
     uriInput.addEventListener('input', () => {
         userTypedInput = uriInput.value.length > 0;
     });
@@ -114,6 +116,15 @@
         noteInput.style.height = `${lastHeight + 150}px`;
     }
     document.getElementById('expandNoteButton').addEventListener('click', expandTextarea);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // allow for linus.zone/#<:slug> to go straight to editing
+        if (window.location.hash.length > 1) {
+            const noteToEdit = window.location.hash.substr(1);
+            idInput.value = noteToEdit;
+            onIdInput();
+        }
+    });
 
 }());
 
