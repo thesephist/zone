@@ -95,9 +95,9 @@ header p a::after {
     opacity: 0;
     color: #333;
     position: absolute;
-    left: 50%;
     top: calc(100% + 6px);
-    transform: translate(-50%, -6px);
+    right: 0;
+    transform: translate(0, -6px);
     white-space: nowrap;
     background: #fff;
     border-radius: 4px;
@@ -109,7 +109,7 @@ header p a::after {
 
 header p a:hover::after {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate(0, 0);
 }
 
 label {
