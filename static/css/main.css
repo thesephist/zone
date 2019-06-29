@@ -84,6 +84,10 @@ header {
     justify-content: space-between;
 }
 
+header p {
+    text-align: right
+}
+
 header p a {
     color: #333;
     position: relative;
