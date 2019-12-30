@@ -37,14 +37,14 @@ app.get('/', (req, res) => {
         res.send(`[1mLinus Lee[0m
 [33m===[0m
 
-[34mwww:    linus.zone/now
+[34mwww:    thesephist.com
 email:  linus@thesephist.com
 social: @thesephist[0m
 
 [33m---[0m
 
-[32mFrontend Engineer, Repl.it
-    linus@repl.it
+[32mProduct Engineer, Hack Club
+    linus@hackclub.com
 
 Investment Partner, Dorm Room Fund
     linus@drf.vc
