@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -10,6 +11,8 @@ app.use(bodyParser.urlencoded({
 
 const Config = require('../config.js');
 const { StorageBackend, Record } = require('./storage.js');
+
+const GLOBAL_PASSWORD = fs.readFileSync('.env', 'utf8').trim().split('=')[1];
 
 // create db if not exists
 if (!fs.existsSync(Config.DATABASE)) {
@@ -67,10 +70,10 @@ Computer Science, UC Berkeley
 });
 
 app.post('/new', async (req, res) => {
-    if (req.body.id && req.body.id.includes('.')) {
+    if (req.body.id && (req.body.id.includes('.') || req.body.id.includes('/'))) {
         res.status(400);
         res.set('Content-Type', 'text/plain');
-        res.send('Record IDs cannot contain "."');
+        res.send('Record IDs cannot contain "." or "/"');
         return;
     }
 
@@ -89,7 +92,15 @@ app.post('/new', async (req, res) => {
             canCreateRecord = true;
         }
 
-        if (canCreateRecord) {
+        // NOTE: This is a quick hack to ensure that only authorized
+        // people can add to the database, because I ran into problems
+        // with spam.
+        const hash = crypto.createHash('sha256');
+        hash.update(req.body.password);
+        const hashed = hash.digest('hex');
+        const isAuthorizedUser = hashed === GLOBAL_PASSWORD;
+
+        if (canCreateRecord && isAuthorizedUser) {
             const record = new Record({
                 id: req.body.id || undefined,
                 type: req.body.content_uri ? 'uri' : 'note',
