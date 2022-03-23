@@ -118,7 +118,7 @@ class Record {
             throw new Error(`Cannot render a record of type ${this.type}`);
         }
 
-        return marked(this.content);
+        return marked.parse(this.content);
     }
 
     getRawNote() {
